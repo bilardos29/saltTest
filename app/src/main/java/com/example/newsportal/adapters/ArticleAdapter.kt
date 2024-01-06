@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
@@ -41,37 +42,38 @@ class ArticleAdapter() : RecyclerView.Adapter<ArticleHolder>() {
         val article = newslist[position]
         val requestOption = RequestOptions()
 
-        holder.itemView.apply {
-            // for image
-            Glide.with(this).load(article.urlToImage).apply(requestOption)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        holder.pb.visibility = View.VISIBLE
-                        return false
-                    }
+        if(!article.title.equals("[Removed]")) {
+            holder.itemView.apply {
+                // for image
+                Glide.with(this).load(article.urlToImage).apply(requestOption)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            holder.pb.visibility = View.VISIBLE
+                            return false
+                        }
 
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        holder.pb.visibility = View.GONE
-                        return false
-                    }
-                }).transition(DrawableTransitionOptions.withCrossFade()).into(holder.imageView)
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            holder.pb.visibility = View.GONE
+                            return false
+                        }
+                    }).transition(DrawableTransitionOptions.withCrossFade()).into(holder.imageView)
 
-            holder.textTitle.setText(article.title)
-            holder.tvSource.setText(article.source!!.name)
-            holder.tvDescription.setText(article.description)
-            holder.tvPubslishedAt.setText(Utils.dateFormat(article.publishedAt))
+                holder.textTitle.setText(article.title)
+                holder.tvSource.setText(article.source!!.name)
+                holder.tvPubslishedAt.setText(Utils.dateFormat(article.publishedAt))
 
+            }
         }
 
         // storing the position and articles in the click event
@@ -103,7 +105,6 @@ class ArticleHolder(itemView: View) : ViewHolder(itemView) {
 
     val textTitle: TextView = itemView.findViewById(R.id.tvTitle)
     val tvSource: TextView = itemView.findViewById(R.id.tvSource)
-    val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
     val tvPubslishedAt: TextView = itemView.findViewById(R.id.tvPublishedAt)
     val imageView: ImageView = itemView.findViewById(R.id.ivArticleImage)
     val pb: ProgressBar = itemView.findViewById(R.id.pbImage)

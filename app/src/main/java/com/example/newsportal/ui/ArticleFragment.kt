@@ -107,7 +107,7 @@ class ArticleFragment : Fragment(), ItemClicklistner, MenuProvider {
         newsAdapter.setItemClickListener(this)
         rv.apply {
             adapter = newsAdapter
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         }
     }
@@ -117,8 +117,6 @@ class ArticleFragment : Fragment(), ItemClicklistner, MenuProvider {
         // GOING TO ANOTHER FRAGMENT
         val action = ArticleFragmentDirections.actionFragmentArticleToFragmentDetail(article)
         view?.findNavController()?.navigate(action)
-
-        Toast.makeText(context, "check ${article.title}", Toast.LENGTH_SHORT).show()
     }
 
     private fun newFilterItems(p0: String?) {

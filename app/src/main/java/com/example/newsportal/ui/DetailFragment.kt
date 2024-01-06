@@ -47,14 +47,12 @@ class DetailFragment : Fragment() {
         val textTitle: TextView = view.findViewById(R.id.tvTitle)
         val tSource: TextView = view.findViewById(R.id.tvSource)
         val tDescription: TextView = view.findViewById(R.id.tvDescription)
-        val tPubslishedAt: TextView = view.findViewById(R.id.tvPublishedAt)
         val imageView: ImageView = view.findViewById(R.id.articleImage)
         val source = Source(args.article.source!!.id, args.article.source!!.name)
 
         textTitle.setText(args.article.title)
         tSource.setText(source.name)
         tDescription.setText(args.article.description)
-        tPubslishedAt.setText(Utils.dateFormat(args.article.publishedAt))
 
         Glide.with(requireActivity()).load(args.article.urlToImage).into(imageView)
 
