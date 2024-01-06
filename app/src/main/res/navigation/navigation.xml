@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragmentArticle">
+
+    <fragment
+        android:id="@+id/fragmentArticle"
+        android:name="com.example.newsportal.ui.ArticleFragment"
+        android:label="Article Breaking News" >
+        <action
+            android:id="@+id/action_fragmentArticle_to_fragmentDetail"
+            app:destination="@id/fragmentDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentDetail"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDetail"
+        android:name="com.example.newsportal.ui.DetailFragment"
+        android:label="Article Detail" >
+        <action
+            android:id="@+id/action_fragmentDetail_to_fragmentArticle"
+            app:destination="@id/fragmentArticle"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/fragmentArticle"/>
+        <argument
+            android:name="article"
+            app:argType="com.example.newsportal.db.Article" />
+        />
+    </fragment>
+</navigation>
